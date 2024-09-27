@@ -1,1 +1,4 @@
-from pyreadr.pyreadr import pyreadr
+from datareadr.datareadr import datareadr
+
+def load_ui(path):
+    datareadr().__load_ui__(path)
