@@ -19,14 +19,11 @@ class datareadr:
         # main_window
         self.root = tk.Tk()
         self.root.title("DataReadr")
-        self.root.geometry("1000x600")
-        # self.root.geometry("1720x860")
-        n_rows = 6
-        n_columns = 10
-        for i in range(n_rows):
-            self.root.grid_rowconfigure(i, weight=1)
-        # for i in range(n_columns):
-        #     self.root.grid_columnconfigure(i, weight=1)
+        # self.root.geometry("1000x600")
+        self.screen_width = self.root.winfo_screenwidth()
+        self.screen_height = self.root.winfo_screenheight()
+
+        self.root.geometry(f'{self.screen_width}x{self.screen_height}')
         self.__import_file_data_options_page__()
         self.value_inside = tk.StringVar()
         self.value_inside_sep = tk.StringVar()
@@ -165,22 +162,21 @@ class datareadr:
         self.data_frame_name_entry_variable.set(f"{self.__get_file_name__(f"{self.selected_file_path}")}")
         if self.split_text[1] == ".xlsx" or self.split_text[1] == ".xls":
             self.code_preview_code = \
-f"""import pandas as pd
-import __init__ as dr
-{self.__normalize_text__(self.data_frame_name)} = dr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr")
+f"""import datareadr as dr
+{self.__normalize_text__(self.data_frame_name)} = dr.datareadr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr").return_val()
 print({self.__normalize_text__(self.data_frame_name)})
 """
         elif self.split_text[1] == ".csv":
             self.code_preview_code = \
-f"""import pandas as pd
-{self.__normalize_text__(self.data_frame_name)} = pd.read_csv('{self.selected_file_path}')
+f"""import datareadr as dr
+{self.__normalize_text__(self.data_frame_name)} = dr.datareadr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr").return_val()
 print({self.__normalize_text__(self.data_frame_name)})
 """
         elif self.split_text[1] == ".json":
             if self.code_json_writable == True:
                 self.code_preview_code = \
-f"""import pandas as pd
-{self.__normalize_text__(self.data_frame_name)} = pd.read_json('{self.selected_file_path}')
+f"""import datareadr as dr
+{self.__normalize_text__(self.data_frame_name)} = dr.datareadr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr").return_val()
 print({self.__normalize_text__(self.data_frame_name)})
                 """
             else:
@@ -248,9 +244,9 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.open_data()
 
     def __import_from_excel_page__(self):
-        self.root.geometry("1720x880")
-        self.root.wm_minsize(width=1650, height=880)
-        self.root.wm_maxsize(width=1650, height=880)
+        self.root.geometry(f'{self.screen_width-50}x{self.screen_height-85}')
+        # self.root.wm_minsize(width=1650, height=880)
+        # self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | Excel Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
@@ -276,7 +272,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.data_preview_lbl = ttk.Label(self.root, text="Data Preview:", font=("Poppins Regular", 10))
         self.import_options_lbl = ttk.Label(self.root, text="Import Options:", font=("Poppins Regular", 10))
         self.data_preview_lbl.grid(row=3, column=1, sticky="w", padx=20, pady=10)
-        self.code_preview_lbl.grid(row=5, column=1, sticky="e", padx=700, pady=10)
+        self.code_preview_lbl.grid(row=5, column=1, sticky="e", padx=20, pady=10)
         self.import_options_lbl.grid(row=5, column=1, sticky="w", padx=20, pady=10)
         self.select_file_lbl.grid(row=1, column=1, sticky="w", padx=20)
         self.space = ttk.Label(self.root, text="").grid(row=0)
@@ -297,7 +293,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.select_file_btn.grid(row=1, column=1, sticky="e", padx=20)
 
         # entry
-        self.v_name_entry = ttk.Entry(self.import_options_frame, width=70,
+        self.v_name_entry = ttk.Entry(self.import_options_frame, width=50,
                                       textvariable=self.data_frame_name_entry_variable).grid(row=0, column=1, padx=20)
         self.entry_file_selecting = ttk.Entry(self.root, width=120, font=("Poppins", 12),
                                               textvariable=self.selecting_file_entry_variable)
@@ -309,9 +305,9 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.code_preview_text.grid(row=0, column=1, sticky="s")
 
     def __import_from_csv_page__(self):
-        self.root.geometry("1720x860")
-        self.root.wm_minsize(width=1650, height=880)
-        self.root.wm_maxsize(width=1650, height=880)
+        self.root.geometry(f'{self.screen_width-50}x{self.screen_height-85}')
+        # self.root.wm_minsize(width=1650, height=880)
+        # self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | CSV Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
@@ -356,7 +352,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.select_file_btn.grid(row=1, column=1, sticky="e", padx=20)
 
         # entry
-        self.v_name_entry = ttk.Entry(self.import_options_frame, width=70,
+        self.v_name_entry = ttk.Entry(self.import_options_frame, width=50,
                                       textvariable=self.data_frame_name_entry_variable).grid(row=0, column=1, padx=20)
         self.entry_file_selecting = ttk.Entry(self.root, width=120, font=("Poppins", 12),
                                               textvariable=self.selecting_file_entry_variable)
@@ -368,9 +364,9 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.code_preview_text.grid(row=0, column=1, sticky="s")
 
     def __import_from_json_page__(self):
-        self.root.geometry("1720x860")
-        self.root.wm_minsize(width=1650, height=880)
-        self.root.wm_maxsize(width=1650, height=880)
+        self.root.geometry(f'{self.screen_width-50}x{self.screen_height-85}')
+        # self.root.wm_minsize(width=1650, height=880)
+        # self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | JSON Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
@@ -412,7 +408,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.select_file_btn.grid(row=1, column=1, sticky="e", padx=20)
 
         # entry
-        self.v_name_entry = ttk.Entry(self.import_options_frame, width=70,
+        self.v_name_entry = ttk.Entry(self.import_options_frame, width=50,
                                       textvariable=self.data_frame_name_entry_variable).grid(row=0, column=1, padx=20)
 
         self.entry_file_selecting = ttk.Entry(self.root, width=120, font=("Poppins", 12),
@@ -427,7 +423,8 @@ print({self.__normalize_text__(self.data_frame_name)})
     def __import_file_data_options_page__(self):
         self.root.grid_columnconfigure(0, weight=1)
         self.root.title("DataReadr")
-        self.root.geometry("1000x600")
+        # self.root.geometry("1000x600")
+        self.root.geometry(f'{self.screen_width-750}x{self.screen_height-250}')
         for i in self.root.winfo_children():
             i.destroy()
         # self.root.grid_columnconfigure(1, weight=1)
@@ -446,21 +443,26 @@ print({self.__normalize_text__(self.data_frame_name)})
     class recalling(pd.DataFrame):
         def __init__(self, path, *args, **kwargs, ):
             super().__init__(*args, **kwargs)
-            self.df = pd.read_excel(f"{self.read(f'{path}')}")
+            split_tup = os.path.splitext('my_file.txt')
+            if split_tup[1] == ".xlsx" or split_tup[1] == ".xls":
+                self.df = pd.read_excel(f"{self.read(f'{path}')}")
+            elif split_tup[1] == ".csv":
+                self.df = pd.read_csv(f"{self.read(f'{path}')}")
+            elif split_tup[1] == ".json":
+                self.df = pd.read_json(f"{self.read(f'{path}')}")
             self.my_df = self.df.copy()
             self.my_df = self.my_df.drop(0)
 
         def read(self, file):
             with open(f"{file}", "r+") as f:
-                data = f.read()
-            return data
+                self.data = f.read()
+            return self.data
 
         def return_val(self):
+            warnings.filterwarnings("ignore",
+                                    "Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access",
+                                    UserWarning)
             return (self.my_df)
-
-    warnings.filterwarnings("ignore",
-                            "Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access",
-                            UserWarning)
 
     def __import_func__(self):
             try:
