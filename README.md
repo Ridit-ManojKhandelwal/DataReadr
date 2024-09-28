@@ -3,7 +3,7 @@ DataReadr with GUI Interface simplifies the process of adding Pandas code into P
 
 #Examples of How To Use (Beta Version Not Fully Completed)
 
-```ruby
+```python
 import datareadr as dr
 
 #loading the ui
