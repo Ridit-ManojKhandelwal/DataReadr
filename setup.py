@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '0.10'
+VERSION = '0.10.1'
 DESCRIPTION = 'Pandas Code Importer with GUI Interface simplifies the process of adding Pandas code into Python scripts. Through a user-friendly GUI, users can easily select and insert Pandas functions, automating repetitive tasks and enhancing productivity in data analysis projects.'
 LONG_DESCRIPTION = '''
 PyImport is an innovative tool designed to enhance the coding experience by simplifying the integration of the Pandas library into Python scripts. This powerful program, equipped with an intuitive Graphical User Interface (GUI), enables users to efficiently insert Pandas-related functions and code snippets into their projects without the need for manual coding. By automating this process, PyImport streamlines workflows, reduces human error, and accelerates data manipulation tasks for developers and data analysts alike.
