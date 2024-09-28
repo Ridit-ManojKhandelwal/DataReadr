@@ -13,6 +13,7 @@ from openpyxl import load_workbook
 from cryptography.fernet import Fernet
 import json
 import sys
+from sys import exit
 
 class datareadr:
     def __init__(self):
