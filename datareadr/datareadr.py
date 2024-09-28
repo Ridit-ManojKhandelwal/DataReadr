@@ -5,12 +5,14 @@ from tkinter import filedialog
 from tkinter import messagebox
 import os
 import re
+import warnings
 import unicodedata
 import pandas as pd
 import csv
 from openpyxl import load_workbook
-from PIL import Image, ImageTk
+from cryptography.fernet import Fernet
 import json
+import sys
 
 class datareadr:
     def __init__(self):
@@ -28,6 +30,8 @@ class datareadr:
         self.__import_file_data_options_page__()
         self.value_inside = tk.StringVar()
         self.value_inside_sep = tk.StringVar()
+        self.working_directory = os.getcwd()
+        self.file_name_path = sys.argv[0]
 
     def __load_ui__(self, path):
         self.file_path = path
@@ -162,7 +166,8 @@ class datareadr:
         if self.split_text[1] == ".xlsx" or self.split_text[1] == ".xls":
             self.code_preview_code = \
 f"""import pandas as pd
-{self.__normalize_text__(self.data_frame_name)} = pd.read_excel('{self.selected_file_path}')
+import __init__ as dr
+{self.__normalize_text__(self.data_frame_name)} = dr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr")
 print({self.__normalize_text__(self.data_frame_name)})
 """
         elif self.split_text[1] == ".csv":
@@ -438,6 +443,24 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.import_csv_file_btn.grid(row=2, pady=10)
         self.import_json_file_btn = ttk.Button(self.root, text="From JSON", style="my.TButton", width=20, command = lambda : self.__import_from_json_page__())
         self.import_json_file_btn.grid(row=3, pady=10)
+    class recalling(pd.DataFrame):
+        def __init__(self, path, *args, **kwargs, ):
+            super().__init__(*args, **kwargs)
+            self.df = pd.read_excel(f"{self.read(f'{path}')}")
+            self.my_df = self.df.copy()
+            self.my_df = self.my_df.drop(0)
+
+        def read(self, file):
+            with open(f"{file}", "r+") as f:
+                data = f.read()
+            return data
+
+        def return_val(self):
+            return (self.my_df)
+
+    warnings.filterwarnings("ignore",
+                            "Pandas doesn't allow columns to be created via a new attribute name - see https://pandas.pydata.org/pandas-docs/stable/indexing.html#attribute-access",
+                            UserWarning)
 
     def __import_func__(self):
             try:
@@ -445,7 +468,6 @@ print({self.__normalize_text__(self.data_frame_name)})
                     if self.code_json_importable == True:
                         with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                             self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
-                        print(__file__)
                         messagebox.showinfo("Info", "Successfully Imported Dataframe")
                         exit()
                     else:
@@ -465,17 +487,22 @@ print({self.__normalize_text__(self.data_frame_name)})
 import pandas as pd
 {self.__normalize_text__(self.data_frame_name)} = pd.read_csv('{self.selected_file_path}', sep = '{self.sep}')
 print({self.__normalize_text__(self.data_frame_name)})
+
 """
                     with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                         self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
-                    print(__file__)
+
                     messagebox.showinfo("Info", "Successfully Imported Dataframe")
                     exit()
                 else:
                     with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                         self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
-                    print(__file__)
+                    with open(f"{self.working_directory}/{self.__get_file_name__(f"{self.selected_file_path}")}.dr", "w+") as df:
+                        df.write(f'{self.selected_file_path}')
+
                     messagebox.showinfo("Info", "Successfully Imported Dataframe")
                     exit()
             except Exception as e:
                 print(f"There was an error!", e)
+                messagebox.showerror("Error", "We encountered en error ", e)
+
