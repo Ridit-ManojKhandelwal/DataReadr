@@ -421,7 +421,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.code_preview_text.grid(row=0, column=1, sticky="s")
 
     def __import_file_data_options_page__(self):
-        self.root.grid_columnconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=2)
         self.root.title("DataReadr")
         # self.root.geometry("1000x600")
         self.root.geometry(f'{self.screen_width-750}x{self.screen_height-250}')
@@ -443,7 +443,7 @@ print({self.__normalize_text__(self.data_frame_name)})
     class recalling(pd.DataFrame):
         def __init__(self, path, *args, **kwargs, ):
             super().__init__(*args, **kwargs)
-            split_tup = os.path.splitext('my_file.txt')
+            split_tup = os.path.splitext(f'{self.read(f'{path}')}')
             if split_tup[1] == ".xlsx" or split_tup[1] == ".xls":
                 self.df = pd.read_excel(f"{self.read(f'{path}')}")
             elif split_tup[1] == ".csv":
