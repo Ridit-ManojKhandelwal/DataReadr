@@ -39,8 +39,5 @@ This message show's that you're file is successfully imported. Enjoy!
 
 ![Screenshot 2024-09-28 102031](https://github.com/user-attachments/assets/29f948a2-84da-4ae3-bb89-4fe06253e4a5)
 
-# Step 6
-[Screenshot 2024-09-05 090109](https://github.com/user-attachments/assets/b6a900f9-3528-415d-abea-c7fda9dd0516)
-
 
 
