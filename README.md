@@ -5,10 +5,11 @@ DataReadr with GUI Interface simplifies the process of adding Pandas code into P
 
 Loading UI
 ```python
-import datareadr as dr
+import datareadr as dr # pip install datareadr
+import sys # preinstalled in python
 
 #loading the ui
-dr.load_ui(__file__) #__file__ (takes the current file location and insert it in the program)
+dr.load_ui(sys.argv[0]) #sys.argv[0] (takes the current file location and insert it in the program)
 ```
 Delete the 'load_ui' code line when dataframe is imported.
 
