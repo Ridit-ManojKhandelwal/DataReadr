@@ -35,7 +35,7 @@ Now Click on import and your file will we imported.
 ![Screenshot 2024-09-28 102006](https://github.com/user-attachments/assets/b7780fb9-34d6-4f05-950e-af823ab2187a)
 
 # Step 5
-This message show's that you'r file is successfully imported. Enjoy!
+This message show's that you're file is successfully imported. Enjoy!
 
 ![Screenshot 2024-09-28 102031](https://github.com/user-attachments/assets/29f948a2-84da-4ae3-bb89-4fe06253e4a5)
 
