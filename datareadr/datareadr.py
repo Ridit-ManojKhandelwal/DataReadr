@@ -443,7 +443,7 @@ print({self.__normalize_text__(self.data_frame_name)})
     class recalling(pd.DataFrame):
         def __init__(self, path, *args, **kwargs, ):
             super().__init__(*args, **kwargs)
-            split_tup = os.path.splitext('my_file.txt')
+            split_tup = os.path.splitext(f'{self.read(f'{path}')}')
             if split_tup[1] == ".xlsx" or split_tup[1] == ".xls":
                 self.df = pd.read_excel(f"{self.read(f'{path}')}")
             elif split_tup[1] == ".csv":
