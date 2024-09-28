@@ -10,4 +10,4 @@ import datareadr as dr
 #loading the ui
 dr.load_ui(__file__) #__file__ (takes the current file location and insert it in the program)
 ```
-Delete the load ui code line when dataframe is imported.
+Delete the 'load_ui' code line when dataframe is imported.
