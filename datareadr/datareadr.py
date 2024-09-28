@@ -244,7 +244,8 @@ print({self.__normalize_text__(self.data_frame_name)})
 
     def __import_from_excel_page__(self):
         self.root.geometry("1720x880")
-        self.root.wm_minsize(width=1650, height=860)
+        self.root.wm_minsize(width=1650, height=880)
+        self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | Excel Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
@@ -304,7 +305,8 @@ print({self.__normalize_text__(self.data_frame_name)})
 
     def __import_from_csv_page__(self):
         self.root.geometry("1720x860")
-        self.root.wm_minsize(width=1600, height=860)
+        self.root.wm_minsize(width=1650, height=880)
+        self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | CSV Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
@@ -362,7 +364,8 @@ print({self.__normalize_text__(self.data_frame_name)})
 
     def __import_from_json_page__(self):
         self.root.geometry("1720x860")
-        self.root.wm_minsize(width=1600, height=860)
+        self.root.wm_minsize(width=1650, height=880)
+        self.root.wm_maxsize(width=1650, height=880)
         self.root.title("DataReadr | JSON Import")
         self.root.grid_columnconfigure(0, weight=0)
         for i in self.root.winfo_children():
