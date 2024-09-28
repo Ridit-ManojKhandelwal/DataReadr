@@ -421,7 +421,7 @@ print({self.__normalize_text__(self.data_frame_name)})
         self.code_preview_text.grid(row=0, column=1, sticky="s")
 
     def __import_file_data_options_page__(self):
-        self.root.grid_columnconfigure(0, weight=2)
+        self.root.grid_columnconfigure(0, weight=1)
         self.root.title("DataReadr")
         # self.root.geometry("1000x600")
         self.root.geometry(f'{self.screen_width-750}x{self.screen_height-250}')
@@ -443,7 +443,7 @@ print({self.__normalize_text__(self.data_frame_name)})
     class recalling(pd.DataFrame):
         def __init__(self, path, *args, **kwargs, ):
             super().__init__(*args, **kwargs)
-            split_tup = os.path.splitext(f'{self.read(f'{path}')}')
+            split_tup = os.path.splitext('my_file.txt')
             if split_tup[1] == ".xlsx" or split_tup[1] == ".xls":
                 self.df = pd.read_excel(f"{self.read(f'{path}')}")
             elif split_tup[1] == ".csv":
@@ -471,6 +471,9 @@ print({self.__normalize_text__(self.data_frame_name)})
                         with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                             self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
                         messagebox.showinfo("Info", "Successfully Imported Dataframe")
+                        with open(f"{self.working_directory}/{self.__get_file_name__(f"{self.selected_file_path}")}.dr",
+                                  "w+") as df:
+                            df.write(f'{self.selected_file_path}')
                         exit()
                     else:
                         messagebox.showerror("Error", "Invalid File.")
@@ -486,13 +489,14 @@ print({self.__normalize_text__(self.data_frame_name)})
                     elif self.value_inside_sep.get() == "Space":
                         self.sep = "  "
                     self.code_preview_code = f"""
-import pandas as pd
-{self.__normalize_text__(self.data_frame_name)} = pd.read_csv('{self.selected_file_path}', sep = '{self.sep}')
+import datareadr as dr
+{self.__normalize_text__(self.data_frame_name)} = dr.datareadr.recalling("{self.working_directory}\\{self.__get_file_name__(f"{self.selected_file_path}")}.dr").return_val()
 print({self.__normalize_text__(self.data_frame_name)})
-
 """
                     with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                         self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
+                    with open(f"{self.working_directory}/{self.__get_file_name__(f"{self.selected_file_path}")}.dr", "w+") as df:
+                        df.write(f'{self.selected_file_path}')
 
                     messagebox.showinfo("Info", "Successfully Imported Dataframe")
                     exit()
