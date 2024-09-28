@@ -475,7 +475,7 @@ print({self.__normalize_text__(self.data_frame_name)})
                         with open(f"{self.working_directory}/{self.__get_file_name__(f"{self.selected_file_path}")}.dr",
                                   "w+") as df:
                             df.write(f'{self.selected_file_path}')
-                        exit()
+                        sys.exit()
                     else:
                         messagebox.showerror("Error", "Invalid File.")
                         self.code_preview_text.delete('1.0', tk.END)
@@ -500,7 +500,7 @@ print({self.__normalize_text__(self.data_frame_name)})
                         df.write(f'{self.selected_file_path}')
 
                     messagebox.showinfo("Info", "Successfully Imported Dataframe")
-                    exit()
+                    sys.exit()
                 else:
                     with open(f"{self.file_path}", "a") as self.__current_operating_file__:
                         self.__current_operating_file__.write(f"\n{self.code_preview_code}\n")
@@ -508,7 +508,7 @@ print({self.__normalize_text__(self.data_frame_name)})
                         df.write(f'{self.selected_file_path}')
 
                     messagebox.showinfo("Info", "Successfully Imported Dataframe")
-                    exit()
+                    sys.exit()
             except Exception as e:
                 print(f"There was an error!", e)
                 messagebox.showerror("Error", "We encountered en error ", e)
